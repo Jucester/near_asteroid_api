@@ -3,6 +3,9 @@ const morgan = require('morgan');
 
 const app = express();
 
+// Importing Routes
+const userRoutes = require('./routes/user.routes');
+
 // Settings
 app.set('PORT', process.env.PORT || 4000);
 
@@ -12,9 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('Hi');
-})
+app.use('/api/1.0/users', userRoutes);
 
 // Error handler
 
