@@ -2,7 +2,7 @@
 
 
 ### Details: 
-
+This is an API that retrieve info about the Near Earth Asteroids
 
 
 # Stack
@@ -10,29 +10,3 @@
 * Node.js 
 * Express 
 * MongoDB
-
-# How to run it?
-
-
-## Installing
-
-
-### 1. 
-
-```
-
-```
-
-### 2. 
-
-```
-
-```
-
-### 3. 
-
-```
-
-```
-
-.

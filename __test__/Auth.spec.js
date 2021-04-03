@@ -57,6 +57,12 @@ describe('Authentication', () => {
         expect(response.body.message).toBe('User does not exists');
     });
 
+    it('returns token when credentials are correct', async () => {
+        await addUser();
+        const response = await postAuth({ email: 'user1@test.com', password: 'Password*123' });
+        expect(response.body.token).not.toBeUndefined();
+    });
+
     it('returns 401 and "Incorrect password" when password is wrong', async() => {
         await addUser();
         const response = await postAuth({ email: 'user1@test.com', password: 'Wrong*123' });
