@@ -5,6 +5,7 @@ const app = express();
 
 // Importing Routes
 const userRoutes = require('./routes/user.routes');
+const neaRoutes = require('./routes/neas.routes');
 
 // Settings
 app.set('PORT', process.env.PORT || 4000);
@@ -16,8 +17,9 @@ app.use(express.urlencoded({ extended: false}));
 
 // Routes
 app.use('/api/1.0/users', userRoutes);
+app.use('/api/1.0/neas', neaRoutes);
 
 // Error handler
 
-
+console.log(process.env.NODE_ENV);
 module.exports = app;

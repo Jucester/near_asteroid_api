@@ -22,7 +22,7 @@ controller.register = async (req, res, next) => {
         await user.save();
 
         return res.status(200).json({
-            message: 'User registered succesfully',
+            message: 'User registered successfully',
             user,
         });
 
@@ -34,8 +34,15 @@ controller.register = async (req, res, next) => {
     }
 };
 
-
 controller.login = async (req, res, next) => {
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        })
+    }
+
   
     const { email, password } = req.body;
 
@@ -50,7 +57,7 @@ controller.login = async (req, res, next) => {
        const match = await bcrypt.compare(password, user.password);
 
        if(!match) {
-           return res.status(400).json({
+           return res.status(401).json({
                message: 'Incorrect password'
            });
        }
@@ -92,10 +99,6 @@ controller.getUsers = async (req, res, next) => {
     })
 };
 
-controller.postUser = (req, res, next) => {
-    res.status(200).json({
-        message: 'working'
-    })
-};
+
 
 module.exports = controller;
