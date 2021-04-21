@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=test jest --watchAll"
+    "test": "cross-env NODE_ENV=test jest --watchAll",
+    "seed": "node src/utils/csvToJson.js"
   },
   "keywords": [
     "asteroid",
@@ -33,7 +34,6 @@
     "cross-env": "^7.0.3",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7",
-    "oauth2-mock-server": "^3.1.0",
     "supertest": "^6.1.3"
   }
 }

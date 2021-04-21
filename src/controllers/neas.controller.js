@@ -1,9 +1,7 @@
 const Nea = require('../models/Nea');
-const csvtojson = require('csvtojson');
 const controller = {};
 const { validationResult } = require('express-validator');
-const fs = require('fs');
-const path = require('path');
+;
 
 controller.findAll = async (req, res) => {
     const { page, size } = req.pagination
@@ -134,36 +132,5 @@ controller.deleteNea = async (req, res) => {
     }
 }
 
-controller.csvToJson = (req, res) => {
-
-    try {
-        // get the file location
-        let dir = '../../OrbitalParameters_PHAs.csv';
-        const csvfilepath = path.resolve(__dirname, dir);
-
-        //console.log(csvfilepath);
-
-        // Using the csvtojson to convert the data from the csv file to json 
-        // and then in the promise we add the data to the database
-
-        csvtojson().fromFile(csvfilepath).then( (rows) => {
-
-            rows.forEach( async row => {
-                const nea = new Nea(row);
-                await nea.save();
-            })
-        });
-
-        return res.status(200).json({
-            message: 'Data from CSV added succesfully'
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: 'Something went wrong'
-        })
-    }
-
-}
 
 module.exports = controller;

@@ -11,8 +11,4 @@ router.post('/addList', auth, addList);
 router.put('/:id', auth, updateNea);
 router.delete('/:id', auth, deleteNea);
 
-
-
-router.get('/addFromCsv', auth, csvToJson);
-
 module.exports = router;
