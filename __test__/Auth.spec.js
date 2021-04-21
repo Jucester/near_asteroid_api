@@ -4,6 +4,7 @@ const app = require('../src/app');
 const User = require('../src/models/User');
 const bcrypt = require('bcrypt');
 
+
 jest.setTimeout(30000);
 
 const validUser = {
@@ -28,6 +29,8 @@ const postAuth = async(credentials) => {
 }
 
 beforeAll( async() => {
+    // Generate a new RSA key and add it to the keystore
+ 
     return await mongoose.connect(process.env.MONGO_TEST, { 
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -89,4 +92,6 @@ describe('Authentication', () => {
     });
 
 })
+
+
 
