@@ -1,5 +1,6 @@
 const request = require('supertest');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
+const { connectDB, clearDB, closeDB } = require('../src/config/database');
 const app = require('../src/app');
 const User = require('../src/models/User');
 const bcrypt = require('bcrypt');
@@ -29,21 +30,15 @@ const postAuth = async(credentials) => {
 }
 
 beforeAll( async() => {
-    // Generate a new RSA key and add it to the keystore
+    connectDB();
+});
  
-    return await mongoose.connect(process.env.MONGO_TEST, { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false 
-    })
-});
-
 beforeEach( async() => {
-    return await User.deleteMany();
+    clearDB();
 });
-
+ 
 afterAll( async() => {
-    return await mongoose.disconnect();
+    closeDB();
 });
 
 

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "start": "node index.js",
-    "test": "cross-env NODE_ENV=test jest --watchAll",
-    "seed": "node src/utils/csvToJson.js"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test jest --watchAll --verbose --silent",
+    "seed": "cross-env NODE_ENV=development node src/utils/csvToJson.js"
   },
   "keywords": [
     "asteroid",

@@ -1,8 +1,8 @@
 const request = require('supertest');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
+const { connectDB, clearDB, closeDB } = require('../src/config/database');
 const app = require('../src/app');
 const User = require('../src/models/User');
-const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 jest.setTimeout(30000);
@@ -13,30 +13,22 @@ const validUser = {
     password: 'Password*123',
 };
 
-
 const postUser = async(user = validUser) => {
     let agent = request(app).post('/api/1.0/users/register');
     return await agent.send(user);
-}
+};
 
 beforeAll( async() => {
-    return await mongoose.connect(process.env.MONGO_TEST, { 
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false 
-    })
+    connectDB();
 });
-
+ 
 beforeEach( async() => {
-    await User.deleteMany({});
-    return;
+    clearDB();
 });
-
+ 
 afterAll( async() => {
-    return await mongoose.disconnect();
+    closeDB();
 });
-
 
 describe('User Registration', () => {
     it('Returns 200 when singup request is valid', async () => {

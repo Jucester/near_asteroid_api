@@ -54,7 +54,6 @@ controller.findOne = async (req, res) => {
 controller.addList = (req, res) => {
     
     try {
-        const { full_name, a, e, i, om, w, ma } = req.body;
 
         const nea = new Nea(req.body);
         nea.save();

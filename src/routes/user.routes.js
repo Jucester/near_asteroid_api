@@ -14,7 +14,13 @@ router.post('/register', [
     register
 );
 
-router.post('/login', login);
+router.post('/login',  [
+        check('email').notEmpty().withMessage('Email is required'),
+        check('password').notEmpty().withMessage('Password is required')
+    ], 
+    login
+);
+
 
 router.get('/', auth, getUsers);
 

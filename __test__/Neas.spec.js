@@ -1,5 +1,6 @@
 const request = require('supertest');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
+const { connectDB, clearDB, closeDB } = require('../src/config/database');
 const app = require('../src/app');
 const User = require('../src/models/User');
 const Nea = require('../src/models/Nea');
@@ -25,11 +26,7 @@ const validNea = {
     "ma": "8.160598893"
 }
 
-/*
-const postAuth = async(credentials) => {
-    let agent = request(app).post('/api/1.0/users/login');
-    return await agent.send(credentials);
-}*/
+
 
 const postNea = async(body) => {
     let agent = request(app);
@@ -38,12 +35,12 @@ const postNea = async(body) => {
     const userResponse =  await agent.post('/api/1.0/users/login').send({ email: validUser.email, password: validUser.password });
     const token = userResponse.body.token;
 
-    agent = request(app).post('/api/1.0/neas/addList');
+    agent = request(app).post('/api/1.0/neas');
     if (token) {
         agent.set('x-auth-token', token);
     }
 
-    return agent.send({ user_id: userResponse.body.user.id, ...body});
+    return agent.send({...body});
 }
 
 const getNeas = async () => {
@@ -64,21 +61,15 @@ const getNeas = async () => {
 }
 
 beforeAll( async() => {
-    return await mongoose.connect(process.env.MONGO_TEST, { 
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false 
-    })
+   connectDB();
 });
 
 beforeEach( async() => {
-    await User.deleteMany({});
-    return;
+    clearDB();
 });
 
 afterAll( async() => {
-    return await mongoose.disconnect();
+    closeDB();
 });
 
 
@@ -89,5 +80,5 @@ describe('Listing Near Earth Asteroirds', () => {
         console.log(response.body)
         expect(Array.isArray(response.body.neas));
         expect(response.body.neas.length).toBeGreaterThan(0);
-    })
+    });
 })

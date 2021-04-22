@@ -1,11 +1,11 @@
 const Nea = require('../models/Nea');
 const csvtojson = require('csvtojson');
 const path = require('path')
-const mongoose = require('mongoose');
+const { connectDB, disconnectDB } = require('../config/database');
 
 // Connecting to MongoDB to fill the NEAS collection with the initial data
 require('dotenv').config();
-mongoose.connect(process.env.MONGO_URI);
+connectDB();
 
 const seed = async () => {
 
@@ -26,7 +26,7 @@ const seed = async () => {
             });
         });
 
-        mongoose.connection.close();
+        disconnectDB();
         return true;
 
     } catch (error) {

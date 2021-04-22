@@ -26,5 +26,4 @@ app.use('/api/1.0/neas', neaRoutes);
 
 // Error handler
 
-console.log(process.env.NODE_ENV);
 module.exports = app;

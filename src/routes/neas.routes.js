@@ -7,7 +7,7 @@ const pagination = require('../middlewares/pagination');
 
 router.get('/', auth, pagination, findAll);
 router.get('/:id', auth, findOne)
-router.post('/addList', auth, addList);
+router.post('/', auth, addList);
 router.put('/:id', auth, updateNea);
 router.delete('/:id', auth, deleteNea);
 
